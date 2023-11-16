@@ -1,0 +1,116 @@
+﻿<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Йокогама: суши-бар</title>
+        <link href="styles/2.1.css" rel="stylesheet"
+        type="text/css">
+    </head>
+    <body>
+        <header>
+            <h1>Суши-бар <em>&laquo;Йокогама&raquo;</em></h1>
+            <p class="picture"><img src="images/sushi.jpg"></p>
+        </header>
+        <nav>
+            <div>Главная</div>
+            <div><a href="pages/sashimi.html">Сашими</a></div>
+            <div><a href="pages/sushi.html">Суши</a></div>
+            <div><a href="pages/rolls.html">Роллы</a></div>
+            <div><a href="pages/pricelist.html">Прайс-лист</a></div>
+        </nav>
+        <main>
+            <p>У нас вы найдете:
+            <ul>
+                <li>сашими,</li>
+                <li>суши,</li>
+                <li>роллы,</li>
+                <li>соусы,</li>
+                <li><strong>горячие блюда</strong>,</li>
+                <li>также&nbsp;&mdash; безалкогольные напитки
+                <img src="images/drink.jpg">:
+                    <ul>
+                        <li>чай,</li>
+                        <li>кофе,</li>
+                        <li>мате.</li>
+                    </ul>
+                </li>
+            </ul>
+            <p>Участвуйте в нашей рекламной акции!</p>
+            <ol>
+                <li>Посетите наш суши-бар между 16:00 и
+                19:00.</li>
+            </ol>
+            <div class="advertising">
+                <div>Время действительно только для будних дней.</div>
+                <div>В выходные&nbsp;&mdash; с 14:00 до 20:00.</div>
+            </div>
+            <ol start="2">
+                <li>Купите три суши или ролла.</li>
+                <li>Получите четвертый <span class="bigger">в подарок</span>!</li>
+            </ol>
+        </main>
+        <footer>
+            <p class="greeting">Ждем вас!</p>
+            <address>Наш адрес: ул. Кедровая, 27.</address>
+        </footer>
+    </body>
+</html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Диаграмма</title>
+        <style type="text/css">
+            #draw {
+                display: block;
+                border: 1px dotted grey;
+            }
+        </style>
+        <script type="text/javascript" src="14.5.js"></script>
+    </head>
+    <body>
+        <h1>Диаграмма предпочтений в каллориях</h1>
+        <canvas id="draw" width="500" height="200"></canvas>
+    </body>
+</html>
+<script type="text/javascript">
+    const draw = document.getElementById('draw');
+    const ctx = draw.getContext('2d');
+    ctx.font = '20px sans-serif';
+    let iwidth = 0, a;
+    for (let i = 0; i < languages.length; ++i) {
+        a = ctx.measureText(languages[i][0]).width;
+        if (a > iwidth)
+            iwidth = a;
+    }
+    draw.width = iwidth * languages.length + 5 * (languages.length - 1) + 30;
+    ctx.font = '20px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    const iheight = draw.height - 25;
+    let xi, yi, grd;
+    for (let i = 0; i < languages.length; ++i) {
+        a = iheight * languages[i][1] / 100;
+        xi = i * (iwidth + 5) + 30;
+        yi = draw.height - a;
+        grd = ctx.createLinearGradient(xi, yi, xi, draw.height);
+        grd.addColorStop(0, 'black');
+        grd.addColorStop(1, 'lightgrey');
+        ctx.fillStyle = grd;
+        ctx.fillRect(xi, yi, iwidth, a);
+        ctx.fillStyle = 'black';
+        ctx.fillText(languages[i][0], xi + iwidth / 2, yi, iwidth);
+    }
+    ctx.beginPath();
+    ctx.moveTo(25, draw.height);
+    ctx.lineTo(25, 0);
+    ctx.stroke();
+    ctx.font = '10px sans-serif';
+    ctx.textAlign = 'end';
+    for (let i = 0; i <= 100; i += 10) {
+        a = draw.height - (iheight * i / 100);
+        ctx.moveTo(0, a);
+        ctx.lineTo(25, a);
+        ctx.stroke();
+        ctx.fillText(i, 23, a, 25);
+    }
+</script>
